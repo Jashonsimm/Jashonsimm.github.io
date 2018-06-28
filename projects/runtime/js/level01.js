@@ -62,8 +62,8 @@ var level01 = function (window) {
         enemy.x = x;
         enemy.y = y;
         game.addGameItem(enemy);
-        enemy.velocityX = -1;
-        enemy.rotationalVelocity = 5;
+        enemy.velocityX = -7;
+        enemy.rotationalVelocity = 10;
         enemy.onPlayerCollision = function() {
             game.changeIntegrity(-25);
             enemy.fadeOut();
@@ -75,14 +75,63 @@ var level01 = function (window) {
         };
         
     };
-        createEnemy(400,groundY-125);
         createEnemy(800,groundY-125);
-        createEnemy(1200,groundY-50);
+        createEnemy(1200,groundY-1);
         createEnemy(1600,groundY-125);
-        createEnemy(2000,groundY-50);
-        createEnemy(2400,groundY-50);
-        createEnemy(2800,groundY-125)
+        createEnemy(2000,groundY-1);
+        createEnemy(2400,groundY-1);
+        createEnemy(2800,groundY-125);
+        
+        function createHealth(x,y) {
+        var health =  game.createGameItem('enemy',25);
+        var blueSquare = draw.rect(50,50,'blue');
+        blueSquare.x = -25;
+        blueSquare.y = -25;
+        health.addChild(blueSquare);
+        health.x = x;
+        health.y = y;
+        game.addGameItem(health);
+        health.velocityX = -5;
+        health.rotationalVelocity = 5;
+        health.onPlayerCollision = function() {
+            game.changeIntegrity(25);
+            health.shrink();
+        };
+        health.onProjectileCollision =function() {
+            console.log('Halle has hit the enemy');
+            game.increaseScore(100);
+            health.fadeOut()
+        };
+        
+    };
+        createHealth(500,groundY-150);
+        createHealth(1700,groundY-50);
+        createHealth(2500,groundY-50);
        
+                function createReward(x,y) {
+        var reward =  game.createGameItem('enemy',25);
+        var whiteSquare = draw.rect(50,50,'white');
+        whiteSquare.x = -25;
+        whiteSquare.y = -25;
+        reward.addChild(whiteSquare);
+        reward.x = x;
+        reward.y = y;
+        game.addGameItem(reward);
+        reward.velocityX = -4;
+        reward.rotationalVelocity = 1;
+        reward.onPlayerCollision = function() {
+            game.changeIntegrity(100);
+            reward.shrink();
+        };
+        reward.onProjectileCollision =function() {
+            console.log('Halle has hit the enemy');
+            game.increaseScore(100);
+            reward.fadeOut()
+        };
+        
+    };
+        createReward(3500,groundY-150)
+        
     };
 };
 // DON'T REMOVE THIS CODE //////////////////////////////////////////////////////
